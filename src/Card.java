@@ -1,8 +1,7 @@
 public class Card {
-    int value;
-    String suite;
-    String name;
-
+    private int value;
+    private String suite;
+    private String name;
 
 
     public Card(String nameInput, String suitInput) {
@@ -15,12 +14,22 @@ public class Card {
         } else if (nameInput == "Jack") {
             value = 10;
         } else if (nameInput == "Ace") {
-            value = 1;
+            value = 11;
         } else {
             value = Integer.parseInt(name);
         }
     }
 
+    public int getValue() {
+        return value;
+    }
+    public void setValue(int newValue){
+        value = newValue;
+    }
+
+    public String getName(){
+        return name;
+    }
 
     public void printInfo(){
         System.out.println(name+ " of " +suite);

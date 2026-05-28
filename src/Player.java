@@ -1,37 +1,40 @@
+import java.sql.Array;
+import java.util.ArrayList;
+
 public class Player {
-    Card[] hand;
-    int numberOfCards;
+    private ArrayList<Card> hand;
+    private int numberOfCards;
 
 
+
+public ArrayList<Card> getHand(){
+    return hand;
+}
     public Player(Card card1, Card card2) {
-        hand = new Card[2];
-        hand[0] = card1;
-        hand[1] = card2;
-        numberOfCards = 2;
+        hand = new ArrayList<>();
+        hand.add(card1);
+        hand.add(card2);
+        numberOfCards = hand.size();
 
     }
 
     public void hit(Card newCard) {
-        numberOfCards = numberOfCards +1;
-        Card [] newHand = new Card[numberOfCards];
-        for (int i = 0; i < numberOfCards-1; i++) {
-            newHand[i] = hand[i];
-        }
-
-        newHand[numberOfCards-1] = newCard;
-        hand = newHand;
+        numberOfCards = numberOfCards + 1;
+        hand.add(newCard);
         System.out.println("===========");
         printInfo();
-        if(getHandValue()>21){
+        if (getHandValue() > 21) {
             System.out.println("you lose");
         }
 
     }
 
+
+
     public void dealerInfo(){
         for (int i = 0; i < numberOfCards; i++) {
             if(i==0){
-                hand[i].printInfo();
+                hand.get(i).printInfo();
             }
             else{
                 System.out.println("?");
@@ -46,17 +49,17 @@ public class Player {
 
     public void printInfo() {
         for (int i = 0; i < numberOfCards; i++) {
-            hand[i].printInfo();
+            hand.get(i).printInfo();
 
         }
 
-        System.out.println("Value=" + getHandValue());
+
     }
 
     public int getHandValue() {
         int sum = 0;
         for (int i = 0; i < numberOfCards; i++) {
-            sum = sum+hand[i].value;
+            sum = sum+hand.get(i).getValue();
 
         }
     return sum;

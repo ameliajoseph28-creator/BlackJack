@@ -16,6 +16,7 @@ public class BasicGameApp implements Runnable, KeyListener {
     int indexInDeck = 0;
     Image background;
     boolean stood = false;
+    boolean overLimit;
 
 
     //Variable Definition Section
@@ -42,6 +43,19 @@ public class BasicGameApp implements Runnable, KeyListener {
         System.out.println("===========");
 
         indexInDeck = indexInDeck + 2;
+        if(player.getHandValue()<=21){
+            overLimit = false;
+        }
+        else{
+            overLimit = true;
+        }
+        if(overLimit == true){
+            for(int i=0; i < player.getHand().size(); i++){
+                if(player.getHand().get(i).getName() == "Ace"){
+                    player.getHand().get(i).setValue(1);
+                }
+            }
+        }
         //  player.stand();
         // player.hit(deck[indexInDeck], deck[indexInDeck+1]);
         //indexInDeck = indexInDeck+2;
@@ -96,23 +110,24 @@ public class BasicGameApp implements Runnable, KeyListener {
         g.clearRect(0, 0, WIDTH, HEIGHT);
         g.drawImage(background, 0, 0, WIDTH, HEIGHT, null);
         g.setFont(new Font("SansSerif", Font.BOLD, 20));
-        for(int i = 0; i < player.numberOfCards; i++) {
+        for(int i = 0; i < player.getHand().size(); i++) {
             g.drawString("Player:",100,150);
-            g.drawString(player.hand[i].getInfo(), 200, 200+50*i);
+            g.drawString(player.getHand().get(i).getInfo(), 200, 200+50*i);
             g.drawString(""+player.getHandValue(), 290, 150);
            // g.drawString("");
         }
 
-        for (int i = 0; i < dealer.numberOfCards; i++) {
+        for (int i = 0; i < dealer.getHand().size(); i++) {
             if (i > 0) {
                 g.drawString("Dealer:", 500, 150);
-                g.drawString(dealer.hand[i].getInfo(), 600, 200 + 50 * i);
+                g.drawString(dealer.getHand().get(i).getInfo(), 600, 200 + 50 * i);
             } else {
                 g.drawString("????????", 600, 200 + 200 * i);
             }
         }
 
         // game end info
+
         if (player.getHandValue() > 21){
             g.drawString("Player Busts - Dealer Wins", 500, 550);
         }
